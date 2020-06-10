@@ -19,10 +19,50 @@
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
     <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
-    <h1 class="font-weight-light logo-text">Reservar</h1>
-    <button type="button" onclick="window.location.href='\salas.html'" class="btn btn-default w-50 mx-auto mt-2 mb-2"><h3 class="font-weight-light">Campo 1</h3></button>
-    <button type="button" onclick="window.location.href='\usuarios.html'" class="btn btn-default w-50 mx-auto mt-2 mb-2"><h3 class="font-weight-light">Campo 2</h3></button>
-    <button type="button" onclick="window.location.href='\reservar.html'" class="btn btn-default w-50 mx-auto mt-2 mb-2"><h3 class="font-weight-light">Campo 3</h3></button>
+    <h1 class="font-weight-light logo-text">Reservar Sala</h1>
+    <form class="mx-5 px-5">
+      <div class="form-group">
+        <label for="formUsuario">Usuário</label>
+        <select class="form-control" id="formUsuario">
+          <option>Ana</option>
+          <option>Maria</option>
+          <option>Júlia</option>
+          <option>Amanda</option>
+          <option>André</option>
+          <option>Laís</option>
+          <option>Felipe</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="formSala">Sala</label>
+        <select class="form-control" id="formUsuario">
+          <option>Sala 11</option>
+          <option>Sala 210</option>
+          <option>Sala 332</option>
+          <option>Sala 412</option>
+          <option>Sala 533</option>
+          <option>Sala 6554</option>
+          <option>Sala 43234</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="formData">Data</label>
+        <input class="form-control" type="date" id="formData">
+      </div>
+      <div class="form-group">
+        <label for="formHoraInicial">Hora inicial</label>
+        <input class="form-control" type="time" id="formHoraInicial">
+      </div>
+      <div class="form-group">
+        <label for="formHoraFinal">Hora final</label>
+        <input class="form-control" type="time" id="formHoraFinal">
+      </div>
+      <div class="form-group">
+        <label for="formObs">Observações</label>
+        <textarea class="form-control" id="formObs" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
   </div>
 </div>
 
