@@ -15,9 +15,6 @@
 </head>
 
 <body>
-<div>
-  <p>teste</p>
-</div>
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
     <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
