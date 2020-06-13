@@ -1,3 +1,4 @@
+<?php include 'Genericos/conecta.php'; ?>
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -18,103 +19,39 @@
 
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
-    <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
-    <h1 class="font-weight-light logo-text">Usuário ID</h1>
+    <img src="logo.png" onclick="window.location.href='index.php'" class="rounded mx-auto logo mt-3" alt="logo">
+    <h1 class="font-weight-light logo-text">Reservas do usuário <?php echo $_GET["nome"];?></h1>
     
     <input class="w-50 mx-auto mt-3 mb-5" type="text" id="myInput" onkeyup="myFunction()" placeholder="Procurar reserva...">
     
     <div id="reservas">
-      <table class="table table-striped mx-auto mb-5" style="max-width: 90%;">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Sala 11</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Dia</th>
-            <td>10/10/2020</td>
-          </tr>
-          <tr>
-            <th scope="row">Hora</th>
-            <td>14:30 às 15:30</td>
-          </tr>
-          <tr>
-            <th scope="row">Observações</th>
-            <td>Aula particular</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <table class="table table-striped mx-auto mb-5" style="max-width: 90%;">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Sala 210</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Dia</th>
-            <td>14/10/2020</td>
-          </tr>
-          <tr>
-            <th scope="row">Hora</th>
-            <td>14:30 às 15:30</td>
-          </tr>
-          <tr>
-            <th scope="row">Observações</th>
-            <td>Aula em grupo</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <table class="table table-striped mx-auto mb-5" style="max-width: 90%;">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Sala 412</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Dia</th>
-            <td>10/11/2020</td>
-          </tr>
-          <tr>
-            <th scope="row">Hora</th>
-            <td>14:30 às 16:30</td>
-          </tr>
-          <tr>
-            <th scope="row">Observações</th>
-            <td>Treino privado</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <table class="table table-striped mx-auto mb-5" style="max-width: 90%;">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Sala 11</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Dia</th>
-            <td>17/10/2020</td>
-          </tr>
-          <tr>
-            <th scope="row">Hora</th>
-            <td>14:30 às 15:30</td>
-          </tr>
-          <tr>
-            <th scope="row">Observações</th>
-            <td>Aula particular</td>
-          </tr>
-        </tbody>
-      </table>
+    <?php
+      $tsql = "SELECT sala_alocada, CONVERT(nvarchar,dt_reserva,103) AS dt_reserva , CONVERT(nvarchar,hora,108) AS hora FROM tb_Reserva AS RE WHERE RE.nroSocio=".$_GET["nroSocio"];
+      $dados   = sqlsrv_query($conn, $tsql);
+
+      while($row = sqlsrv_fetch_array($dados, SQLSRV_FETCH_ASSOC)) {
+          ?>
+          <table class="table table-striped mx-auto mb-5" style="max-width: 90%;">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Sala <?php echo $row['sala_alocada'];?></th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Dia</th>
+                <td><?php echo $row['dt_reserva'];?></td>
+              </tr>
+              <tr>
+                <th scope="row">Hora</th>
+                <td><?php echo $row['hora'];?></td>
+              </tr>
+            </tbody>
+          </table>
+          <?php
+      }
+    ?>
     </div>
   </div>
 </div>

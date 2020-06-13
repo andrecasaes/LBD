@@ -1,3 +1,19 @@
+<?php include 'Genericos/conecta.php'; ?>
+
+<?php 
+if ((isset($_POST["Enviar"]) && !(empty($_POST["idUsuario"]) || empty($_POST["nroSala"]) || empty($_POST["Data"]) || empty($_POST["Hora"])))) {
+    $sql="INSERT INTO tb_Reserva VALUES ('".$_POST["idUsuario"]."','".$_POST["nroSala"]."','".$_POST["Hora"]."','".$_POST["Data"]."')"; 
+      $result = sqlsrv_query($conn, $sql);
+    echo "<script type='text/javascript'>alert('Reserva cadastrada com sucesso!')</script>";
+}else if (isset($_POST["Enviar"]) && (empty($_POST["idUsuario"]) || empty($_POST["nroSala"]) || empty($_POST["Data"]) || empty($_POST["Hora"]))) {
+    echo "<script type='text/javascript'>alert('Falta dados!')</script>";
+}
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -18,50 +34,52 @@
 
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
-    <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
+    <img src="logo.png" onclick="window.location.href='index.php'" class="rounded mx-auto logo mt-3" alt="logo">
     <h1 class="font-weight-light logo-text">Reservar Sala</h1>
-    <form class="mx-5 px-5">
+    <form class="mx-5 px-5" method="POST">
       <div class="form-group">
         <label for="formUsuario">Usuário</label>
-        <select class="form-control" id="formUsuario">
-          <option>Ana</option>
-          <option>Maria</option>
-          <option>Júlia</option>
-          <option>Amanda</option>
-          <option>André</option>
-          <option>Laís</option>
-          <option>Felipe</option>
+        <select class="form-control" id="formUsuario" name='idUsuario'>
+        <?php
+          $tsql = "SELECT nome, nroSocio FROM tb_Socio ORDER BY nome";
+          $dados   = sqlsrv_query($conn, $tsql);
+
+          while($row = sqlsrv_fetch_array($dados, SQLSRV_FETCH_ASSOC)) {
+              ?><option value='<?php echo $row['nroSocio'];?>'><?php echo $row['nome'];?></option><?php
+          }
+        ?>
         </select>
       </div>
       <div class="form-group">
         <label for="formSala">Sala</label>
-        <select class="form-control" id="formUsuario">
-          <option>Sala 11</option>
-          <option>Sala 210</option>
-          <option>Sala 332</option>
-          <option>Sala 412</option>
-          <option>Sala 533</option>
-          <option>Sala 6554</option>
-          <option>Sala 43234</option>
+        <select class="form-control" id="formUsuario" name='nroSala'>
+        <?php
+          $tsql = "SELECT nroID FROM tb_Sala where tipo_sala = 1 ORDER BY nroID";
+          $dados   = sqlsrv_query($conn, $tsql);
+
+          while($row = sqlsrv_fetch_array($dados, SQLSRV_FETCH_ASSOC)) {
+              ?><option value='<?php echo $row['nroID'];?>'>Sala <?php echo $row['nroID'];?></option><?php
+          }
+        ?>
         </select>
       </div>
       <div class="form-group">
         <label for="formData">Data</label>
-        <input class="form-control" type="date" id="formData">
+        <input class="form-control" type="date" id="formData" name='Data'>
       </div>
       <div class="form-group">
-        <label for="formHoraInicial">Hora inicial</label>
-        <input class="form-control" type="time" id="formHoraInicial">
+        <label for="formHoraInicial">Hora</label>
+        <input class="form-control" type="time" id="formHoraInicial" name='Hora'>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="formHoraFinal">Hora final</label>
         <input class="form-control" type="time" id="formHoraFinal">
       </div>
       <div class="form-group">
         <label for="formObs">Observações</label>
         <textarea class="form-control" id="formObs" rows="3"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      </div> -->
+      <button type="submit" class="btn btn-primary" name='Enviar'>Enviar</button>
     </form>
   </div>
 </div>
