@@ -1,3 +1,4 @@
+<?php include 'Genericos/conecta.php'; ?>
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -18,21 +19,21 @@
 
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
-    <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
+    <img src="logo.png" onclick="window.location.href='index.php'" class="rounded mx-auto logo mt-3" alt="logo">
     <h1 class="font-weight-light logo-text">Salas</h1>
     
     <input class="w-50 mx-auto mt-2 mb-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Procurar sala...">
     
     <ul id="myUL">
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 11</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 210</a></li>
-    
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 332</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 412</a></li>
-    
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 533</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 6554</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.html">Sala 43234</a></li>
+      <?php
+          $tsql = "SELECT nroID FROM tb_sala ORDER BY nroID";
+          $dados   = sqlsrv_query($conn, $tsql);
+
+          while($row = sqlsrv_fetch_array($dados, SQLSRV_FETCH_ASSOC)) {
+              ?><li><a class="w-50 mx-auto mt-2 mb-2" href="salaID.php?nroID=<?php echo $row['nroID'];?>">Sala <?php echo $row['nroID'];?></a></li><?php
+          }
+      ?>
+      
     </ul>
   </div>
 </div>

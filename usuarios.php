@@ -1,3 +1,4 @@
+<?php include 'Genericos/conecta.php'; ?>
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -18,21 +19,20 @@
 
 <div class="container">
   <div class="card border-0 shadow mt-4 mb-5 pb-5">
-    <img src="logo.png" onclick="window.location.href='index.html'" class="rounded mx-auto logo mt-3" alt="logo">
+    <img src="logo.png" onclick="window.location.href='index.php'" class="rounded mx-auto logo mt-3" alt="logo">
     <h1 class="font-weight-light logo-text">Usuários</h1>
     
     <input class="w-50 mx-auto mt-2 mb-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Procurar usuário...">
     
     <ul id="myUL">
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Ana</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Maria</a></li>
-    
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Júlia</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">André</a></li>
-    
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Amanda</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Laís</a></li>
-      <li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.html">Felipe</a></li>
+    <?php
+          $tsql = "SELECT nome, nroSocio FROM tb_Socio ORDER BY nome";
+          $dados   = sqlsrv_query($conn, $tsql);
+
+          while($row = sqlsrv_fetch_array($dados, SQLSRV_FETCH_ASSOC)) {
+              ?><li><a class="w-50 mx-auto mt-2 mb-2" href="usuarioID.php?nroSocio=<?php echo $row['nroSocio'];?>&nome=<?php echo $row['nome'];?>"><?php echo $row['nome'];?></a></li><?php
+          }
+      ?>
     </ul>
 </div>
 
